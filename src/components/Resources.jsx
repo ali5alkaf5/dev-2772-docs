@@ -6,6 +6,7 @@ import { Heading } from '@/components/Heading'
 import { ChatBubbleIcon } from '@/components/icons/ChatBubbleIcon'
 import { EnvelopeIcon } from '@/components/icons/EnvelopeIcon'
 import { UserIcon } from '@/components/icons/UserIcon'
+import { BellIcon } from '@/components/icons/BellIcon'
 
 const resources = [
   {
@@ -46,6 +47,20 @@ const resources = [
       y: 32,
       squares: [
         [0, 2],
+        [1, 4],
+      ],
+    },
+  },
+  {
+    href: '/notifications',
+    name: 'Notifications',
+    description:
+      'Learn about the notification model and how to manage notifications.',
+    icon: BellIcon,
+    pattern: {
+      y: -12,
+      squares: [
+        [0, 3],
         [1, 4],
       ],
     },
