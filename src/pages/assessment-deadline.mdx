@@ -271,3 +271,115 @@ export const description =
     </CodeGroup>
   </Col>
 </Row>
+
+---
+
+
+## List Late Penalties Reports (Denda)  {{ tag: 'GET', label: '/v1/reports/penalties' }}
+
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a paginated list of all employee's late penalties' report.
+
+    ### Request
+
+    **Optional query**
+
+    <Properties>
+      <Property name="page" type="number" default="1">
+        The page number of the paginated reports.
+        - Default `1`
+      </Property>
+      <Property name="limit" type="number" default="10">
+        The page size of the paginated reports.
+        - Default `10`
+      </Property>
+      <Property name="filter.year" type="number">
+        The year filter of the paginated reports.
+      </Property>
+      <Property name="filter.month" type="number">
+        The month filter of the paginated reports.
+      </Property>
+      <Property name="filter.current" type="boolean">
+        If set to `true`, it returns a response with filter current user id
+      </Property>
+    </Properties>
+
+    ### Response
+
+    <Properties>
+      <Property name="data" type="array<object>">
+        Array of penalties object
+      </Property>
+      <Property name="data.id" type="number">
+        Unique identifier for the penalty.
+      </Property>
+      <Property name="data.issued_at" type="ISODate">
+        The issued date.
+      </Property>
+      <Property name="data.amount" type="number">
+        Penalty amount
+      </Property>
+      <Property name="data.name" type="string">
+        Target User's Name
+      </Property>
+      <Property name="data.job_title" type="string">
+        Target User's Job Title
+      </Property>
+      <Property name="data.department" type="string">
+        Target User's Department
+      </Property>
+      <Property name="pagination.page" type="number">
+        Page number.
+      </Property>
+      <Property name="pagination.page_size" type="number">
+        Number of total document per page.
+      </Property>
+      <Property name="pagination.page_count" type="number">
+        Total page count.
+      </Property>
+      <Property name="pagination.total_document" type="number">
+        Total filtered document.
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="GET" label="/v1/reports/penalties">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.get('/v1/reports/penalties', {
+        params: {
+          page:1,
+          limit: 10,
+          filters: {
+            year: 2023,
+            month: 1
+          },
+        }
+    })
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '200' }}
+    {
+      "data": [
+        {
+          "id": 102189,
+          "issued_at": "2024-09-09T10:00:00.000Z",
+          "amount": 100000,
+          "name": "John Doe",
+          "job_title": "Quality Control",
+          "department": "IT"
+        },
+      ],
+      "pagination": {
+        "page": 1,
+        "page_size": 1,
+        "page_count": 1,
+        "total_document": 1
+      }
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
