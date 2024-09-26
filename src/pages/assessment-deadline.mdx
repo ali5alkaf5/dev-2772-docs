@@ -1,0 +1,273 @@
+import { CodeGroup, Row, Col, Properties, Property } from "../components/mdx.jsx"
+
+export const description =
+  'On this page, we’ll dive into the different setting endpoints you can use to manage assessment deadline settings.'
+
+# Deadline Assessment
+
+## Create Deadline Settings  {{ tag: 'POST', label: '/v1/kpi/assessment-deadline' }}
+
+<Row>
+<Col>
+
+    This endpoint allows you to create a deadline settings for your assessment.
+
+
+    ### Request Body
+
+    <Properties>
+      <Property name="year" type="number">
+        Period of the deadline settings
+      </Property>
+      <Property name="deadline" type="array<object>">
+        Array of deadline periods
+      </Property>
+      <Property name="deadline.*.month_period" type="number">
+        Month should be included between 1 - 12
+      </Property>
+      <Property name="deadline.*.due_date" type="ISODate">
+        Due Date/Deadline of the submission
+      </Property>
+      <Property name="deadline.*.notes" type="string">
+        Additional Notes of the settings
+      </Property>
+    </Properties>
+
+
+    ### Response
+
+    <Properties>
+      <Property name="message" type="string">
+        Success Message
+      </Property>
+      <Property name="status" type="string">
+        Status of the insertion
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="POST" label="/v1/kpi/assessment-deadline">
+    ```typescript {{ title: 'axios' }}
+    const data = {
+      year: 2024,
+      deadline: [
+        { month_period: 1, due_date: "2024-01-31", notes: "" },
+        { month_period: 2, due_date: "2024-02-29", notes: "" },
+      ]
+    }
+    const response = axios.post(`/v1/kpi/assessment-deadline`, data);
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '200' }}
+    {
+        "status": "success",
+        "message": "Deadline Settings Created Successfully",
+    }
+    ```
+    ```json {{ title: '400' }}
+    {
+        "status": "error",
+        "message": "Settings on this period already exists!",
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## List Settings  {{ tag: 'GET', label: '/v1/kpi/assessment-deadline' }}
+<Row>
+  <Col>
+
+    This endpoint allows you to retrieve a paginated list of all your assessment deadline settings.
+
+    ### Request
+
+    **Optional query**
+
+    <Properties>
+      <Property name="page" type="number" default="1">
+        The page number of the paginated assessment deadline settings.
+        - Default `1`
+      </Property>
+      <Property name="limit" type="number" default="10">
+        The page size of the paginated assessment deadline settings.
+        - Default `10`
+      </Property>
+    </Properties>
+
+    ### Response
+
+    <Properties>
+      <Property name="data" type="array<object>">
+        Array of assessment deadline settings object
+      </Property>
+      <Property name="data.id" type="number">
+        Unique identifier for the deadline settings.
+      </Property>
+      <Property name="data.year" type="string">
+        The year.
+      </Property>
+      <Property name="data.current_deadline" type="string">
+        Current assessment deadline
+      </Property>
+      <Property name="pagination.page" type="number">
+        Page number.
+      </Property>
+      <Property name="pagination.page_size" type="number">
+        Number of total document per page.
+      </Property>
+      <Property name="pagination.page_count" type="number">
+        Total page count.
+      </Property>
+      <Property name="pagination.total_document" type="number">
+        Total filtered document.
+      </Property>
+    </Properties>
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="GET" label="/v1/kpi/assessment-deadline">
+    ```typescript {{ title: 'axios' }}
+    const response = axios.get('/v1/kpi/assessment-deadline', {
+        params: {
+            page:1,
+            limit: 10
+        }
+    })
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '200' }}
+    {
+      "data": [
+        {
+          "id": 102189,
+          "year": 2024,
+          "current_deadline": "2024-09-09T10:00:00.000Z",
+        },
+      ],
+      "pagination": {
+        "page": 1,
+        "page_size": 1,
+        "page_count": 1,
+        "total_document": 1
+      }
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+## Update Deadline Settings  {{ tag: 'PUT', label: '/v1/kpi/assessment-deadline/:year' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to update a deadline settings for your assessment based on a year.
+
+    ### Request Body
+
+    <Properties>
+      <Property name="year" type="number">
+        Period of the deadline settings
+      </Property>
+      <Property name="deadline" type="array<object>">
+        Array of deadline periods
+      </Property>
+      <Property name="deadline.*.month_period" type="number">
+        Month should be included between 1 - 12
+      </Property>
+      <Property name="deadline.*.due_date" type="ISODate">
+        Due Date/Deadline of the submission
+      </Property>
+      <Property name="deadline.*.notes" type="string">
+        Additional Notes of the settings
+      </Property>
+    </Properties>
+
+
+    ### Response
+
+    <Properties>
+      <Property name="message" type="string">
+        Success Message
+      </Property>
+      <Property name="status" type="string">
+        Status of the update
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="PUT" label="/v1/kpi/assessment-deadline/:year">
+    ```typescript {{ title: 'axios' }}
+    const data = {
+      year: 2024,
+      deadline: [
+        { month_period: 1, due_date: "2024-01-31", notes: "" },
+        { month_period: 2, due_date: "2024-02-29", notes: "" },
+      ]
+    }
+    const response = axios.put(`/v1/kpi/assessment-deadline/{year}`, data);
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '200' }}
+    {
+        "status": "success",
+        "message": "Deadline Settings Updated Successfully",
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>
+
+---
+
+## Delete Deadline Settings  {{ tag: 'PUT', label: '/v1/kpi/assessment-deadline/:year' }}
+
+<Row>
+  <Col>
+    This endpoint allows you to delete a deadline settings for your assessment on a year.
+
+    ### Request Params
+
+    <Properties>
+      <Property name="year" type="number">
+        Period of the deadline settings
+      </Property>
+    </Properties>
+
+
+    ### Response
+
+    <Properties>
+      <Property name="message" type="string">
+        Success Message
+      </Property>
+      <Property name="status" type="string">
+        Status of the deletion
+      </Property>
+    </Properties>
+
+  </Col>
+  <Col sticky>
+    <CodeGroup title="Request" tag="DELETE" label="/v1/kpi/assessment-deadline/:delete">
+    ```typescript {{ title: 'axios' }}
+    const year = '2024';
+    const response = axios.delete(`/v1/kpi/assessment-deadline/${year}`, data);
+    ```
+    </CodeGroup>
+    <CodeGroup title="Response">
+    ```json {{ title: '200' }}
+    {
+        "status": "success",
+        "message": "Deadline Settings Deleted Successfully",
+    }
+    ```
+    </CodeGroup>
+  </Col>
+</Row>

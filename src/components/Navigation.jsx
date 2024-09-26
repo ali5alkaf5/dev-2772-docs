@@ -198,7 +198,7 @@ export const navigation = [
   {
     title: 'Resources',
     links: [
-      { title: 'Notifications', href: '/notifications' },
+      { title: 'Assessment Deadline', href: '/assessment-deadline' },
       // { title: 'Permissions', href: '/permissions' },
       // { title: 'Roles', href: '/roles' },
       // { title: 'Users', href: '/users' },

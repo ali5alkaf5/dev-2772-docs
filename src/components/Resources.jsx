@@ -52,10 +52,10 @@ const resources = [
     },
   },
   {
-    href: '/notifications',
-    name: 'Notifications',
+    href: '/assessment-deadline',
+    name: 'Assessment Deadline',
     description:
-      'Learn about the notification model and how to manage notifications.',
+      'Learn about the notification model and how to manage assessment deadline.',
     icon: BellIcon,
     pattern: {
       y: -12,
